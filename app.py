@@ -1,7 +1,6 @@
 import os
 import requests
 from flask import Flask, render_template, request, jsonify
-from flask_cors import CORS
 from dotenv import load_dotenv
 from datetime import datetime
 
@@ -10,7 +9,14 @@ load_dotenv()
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)
+
+# Provide the CORS headers directly so the app does not depend on flask-cors.
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
+    response.headers['Access-Control-Allow-Methods'] = 'GET,POST,OPTIONS'
+    return response
 
 # Configuration
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-key-please-change')
