@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SMP Coach - Sleep, Water, Steps Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <div class="container">
+        <!-- Status Indicator -->
+        <div class="status-indicator">
+            <span id="aiStatus">Checking AI status...</span>
+            <span class="status-dot" id="statusDot"></span>
+        </div>
+
+        <h1>🧠 SMP Coach</h1>
+        <div class="subhead">Sleep · Water · Steps &mdash; predict &amp; improve</div>
+
+        <form id="coachForm" class="form-grid">
+            <div class="field">
+                <label for="inSleep">
+                    Sleep <small>hours (0–12)</small>
+                </label>
+                <input
+                    type="number"
+                    id="inSleep"
+                    placeholder="e.g. 7.5"
+                    step="0.5"
+                    min="0"
+                    max="12"
+                    required
+                />
+            </div>
+
+            <div class="field">
+                <label for="inWater">
+                    Water <small>glasses (0–15)</small>
+                </label>
+                <input
+                    type="number"
+                    id="inWater"
+                    placeholder="e.g. 8"
+                    step="1"
+                    min="0"
+                    max="15"
+                    required
+                />
+            </div>
+
+            <div class="field">
+                <label for="inSteps">
+                    Steps <small>per day (0–25000)</small>
+                </label>
+                <input
+                    type="number"
+                    id="inSteps"
+                    placeholder="e.g. 9500"
+                    step="100"
+                    min="0"
+                    max="25000"
+                    required
+                />
+            </div>
+
+            <button type="submit" class="btn" id="submitBtn">Analyze →</button>
+        </form>
+
+        <!-- Prediction & Coaching output -->
+        <div id="coachDisplay" class="ai-response idle">
+            <div>Fill in your metrics &amp; click <strong>Analyze</strong></div>
+        </div>
+
+        <!-- Session History -->
+        <div class="history-section">
+            <div class="history-title">
+                <span>📋 Session History <span class="entry-count" id="entryCount">(0 entries)</span></span>
+                <div class="history-stats">
+                    <span>Hit Rate: <span class="hit-rate" id="hitRate">0%</span></span>
+                    <button id="clearHistory" class="clear-btn">Clear All</button>
+                </div>
+            </div>
+            <div class="history-sub">Entries persist while page is open &bull; resets on refresh</div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Sleep</th>
+                            <th>Water</th>
+                            <th>Steps</th>
+                            <th>Outcome</th>
+                            <th>Conf.</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTable">
+                        <tr>
+                            <td colspan="6" class="empty-state">No entries yet. Submit your first prediction!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            ⚡ Real‑time coach · AI-powered coaching &bull; 
+            <a href="/api/health" target="_blank">Server Status</a>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

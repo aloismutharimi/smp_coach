@@ -38,5 +38,5 @@ A full-stack web application that predicts wellness goal achievement based on sl
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/aloismutharimi/smp_coach.git
+git clone https://github.com/yourusername/smp-coach.git
 cd smp-coach
